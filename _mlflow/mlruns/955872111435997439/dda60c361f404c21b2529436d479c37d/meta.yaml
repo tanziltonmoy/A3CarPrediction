@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/955872111435997439/dda60c361f404c21b2529436d479c37d/artifacts
+end_time: 1701507403168
+entry_point_name: ''
+experiment_id: '955872111435997439'
+lifecycle_stage: active
+run_id: dda60c361f404c21b2529436d479c37d
+run_name: method-batch-lr-0.01-reg-Ridgle-lambda-0.1
+run_uuid: dda60c361f404c21b2529436d479c37d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1701507394330
+status: 3
+tags: []
+user_id: Tanzil
