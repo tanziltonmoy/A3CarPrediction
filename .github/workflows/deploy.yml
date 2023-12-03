@@ -46,19 +46,19 @@ jobs:
           docker build -t tanziltonmoy/a3prediction:latest .
           docker push     tanziltonmoy/a3prediction:latest
       
-#  deploy:
-    # needs: build_n_push
-    # runs-on: ubuntu-latest
+ deploy:
+    needs: build_n_push
+    runs-on: ubuntu-latest
 
-    # steps:
-    #   - name: Checkout code
-    #     uses: actions/checkout@v2
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    #   - name: Setup SSH
-    #     uses: webfactory/ssh-agent@v0.8.0
-    #     with:
-    #       ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    #   - name: Deploy to EC2
-    #     run: |
-    #       ssh -o StrictHostKeyChecking=no ubuntu@ec2-44-216-245-219.compute-1.amazonaws.com "cd /home/ubuntu/salaryPred && sudo docker-compose up -d"
+      - name: Deploy to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-85-95-151.compute-1.amazonaws.com "cd /home/ubuntu/A3CarPrediction && sudo docker-compose up -d"
