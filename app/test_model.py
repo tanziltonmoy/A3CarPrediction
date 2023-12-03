@@ -6,7 +6,7 @@ import os
 import joblib
 
 
-loaded_model = pickle.load(open("model3.pkl", 'rb'))
+loaded_model = pickle.load(open("app/model3.pkl", 'rb'))
 
 
 
