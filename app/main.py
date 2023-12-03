@@ -1,23 +1,10 @@
-# Import packages
-
 from dash import Dash, html, callback, Output, Input, State, dcc
 import dash_bootstrap_components as dbc
 import pickle
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 
-#Load Model
-model_path = "model/model.model"
-model = pickle.load(open(model_path, 'rb'))
-
-# load the scaling parameters
-scaler_path = "model/scaler.pkl"
-loaded_scaler_params = pickle.load(open(scaler_path, 'rb'))
-
-# Create scaler with the loaded parameters
-loaded_scaler = StandardScaler()
-loaded_scaler.mean_ = loaded_scaler_params['mean']
-loaded_scaler.scale_ = loaded_scaler_params['scale']
+from utils import *
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.CERULEAN])
 
@@ -33,7 +20,12 @@ app.layout = dbc.Container([
             html.Ul([
                 html.Li("To predict the selling price of a car, please provide the required inputs: Year, km driven, Engine size, Max power, Type of fuel, and Transmission."),
                 html.Li("Blank input will be automatically filled using an imputation technique."),
-                html.Li("Click the 'Predict' button. The app will then use the selected model to predict the selling price based on the provided inputs.")
+                html.Li("Click the 'Predict' button. The app will then use the selected model to predict the selling price based on the provided inputs."),               
+                html.Li("Category of price has an order.** For example,"),
+                html.Li(" - category 3 has higher selling price than category 2 "),
+                html.Li(" - category 2 has higher selling price than category 1"),
+                html.Li(" - category 1 has higher selling price than category 0")
+
             ])
         ]), width={'size': 6, 'offset': 3}, className="mb-4")
     ]),
@@ -102,16 +94,18 @@ app.layout = dbc.Container([
     Input(component_id="submit", component_property='n_clicks'),
     prevent_initial_call=True
 )
-def Predict_Life_Expectancy(year, km_driven, engine_size, max_power, fuel, transmission, submit):
-    print(year, km_driven, engine_size, max_power, fuel, transmission)
+
+def Predict_price_category(year, km_driven, engine_size, max_power, fuel, transmission, submit):
+    print(year, km_driven, engine_size, fuel, transmission)
+
     if year is None:
-        age = 7.137924897668625 #initialized by mean of age
+        age = 7 #initialized by mean of age
     else:
-        age = abs(2023+1 - year)  #calculating age as the same way was done in training  ( age_of_car = [ max_year_of_data_set + 1 - year_of_car_model ] )
+        age = abs(2020+1 - year)  #calculating age as the same way was done in training  ( age_of_car = [ max_year_of_data_set + 1 - year_of_car_model ] )
     if km_driven is None:
-        km_driven = 70029.87346502936 #initialized by mean of km_driven
+        km_driven = np.log(70029) #initialized by mean of km_driven
     if engine_size is None:
-        engine_size = 1463.855626715462 #initialized by mean of engine_size
+        engine_size = 1463 #initialized by mean of engine_size
     if max_power is None:
         max_power = 91.819726 #initialized by mean of max_power
     if fuel is None or fuel == "Diesel":
@@ -125,22 +119,23 @@ def Predict_Life_Expectancy(year, km_driven, engine_size, max_power, fuel, trans
 
     #type casting of value in float64
     age = np.float64(age)
-    km_driven = np.float64(km_driven)
+    km_driven = np.float64(np.log(km_driven))
     engine_size = np.float64(engine_size)
     max_power = np.float64(max_power)
     fuel = np.float64(fuel)
     transmission = np.float64(transmission)
-
-    
     # Make prediction using the model
-    input_feature = np.array([[km_driven, age, engine_size, max_power, fuel, transmission]])
+    input_feature = np.array([[km_driven, age, engine_size, max_power, fuel,transmission]])
     # Transform the first 4 features
     input_feature[:, :4] = loaded_scaler.transform(input_feature[:, :4]) 
-    print(input_feature.shape)
-    prediction = model.predict(input_feature)[0]
-    prediction = np.exp(prediction)
-    predictedText = f"Predicted Selling Price: {prediction:.2f}"
+
+
+    # print(age, km_driven, engine_size, fuel, transmission, model_dropdown)
+    intercept = np.ones((input_feature.shape[0], 1))
+    input_feature    = np.concatenate((intercept, input_feature), axis=1)
+    predPriceClass = loaded_model.predict(input_feature)[0]
+    predictedText = f"Predicted Selling Price Category: {predPriceClass}"
     return predictedText
 # Run the app
 if __name__ == '__main__':
-    app.run_server(debug=True, use_reloader=False)
+    app.run(debug=True)

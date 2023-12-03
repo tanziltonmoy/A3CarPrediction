@@ -3,5 +3,8 @@ services:
   web:
     image:  tanziltonmoy/a3prediction:latest
     ports:
-      - "9001:8050"
+      - "9001:80"
+    environment:
+    - HOST=0.0.0.0
+    - PORT=80
     command: ["python", "main.py"]
