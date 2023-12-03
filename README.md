@@ -57,6 +57,7 @@ CICD
 - after the successful completion of worklow of git action, please check the Deployment (https://ec2-3-84-132-196.compute-1.amazonaws.com:8080/) 
 
 
+![](Screenshots/Dash.png)
 
 ### Run Locally Dash App Deployment 
 
