@@ -46,7 +46,7 @@ jobs:
           docker build -t tanziltonmoy/a3prediction:latest .
           docker push     tanziltonmoy/a3prediction:latest
       
- deploy:
+  deploy:
     needs: build_n_push
     runs-on: ubuntu-latest
 
