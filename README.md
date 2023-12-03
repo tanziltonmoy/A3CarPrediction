@@ -27,10 +27,7 @@ The machine learning model is trained and saved using MLflow. The trained model 
 
 - after checking all the runs Model the below configuration was registered for for stagging 
 
-   ```{'method': 'minibatch', 'lr': 0.001, 'lambda': 0.1}``` 
-
-
-```
+{'method': 'minibatch', 'lr': 0.001, 'lambda': 0.1}
 ![](Screenshots/model.png)
 
 
@@ -43,7 +40,8 @@ Here our process is
 
 - if the whole process goes well, the git action workflows looks like below - 
 
-CICD
+## CICD
+
 ![](Screenshots/CICD.png)
 
 
