@@ -10,7 +10,7 @@ fuel_Petrol = 0
 transmission_type = 0
 
 data = np.array([[km_driven,age,engine,max_power,fuel_Petrol, transmission_type]])
-# Transform the first 3 features
+# Transform the first 4 features
 data[:, :4] = loaded_scaler.transform(data[:, :4])
 
 intercept = np.ones((data.shape[0], 1))

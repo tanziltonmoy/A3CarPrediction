@@ -17,7 +17,6 @@ import joblib
 # load the scaling parameters for both model(same scaler is used for the features for both models)
 
 
-
 loaded_model = pickle.load(open("model3.pkl", 'rb'))
 
 
