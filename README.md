@@ -15,14 +15,14 @@ The EDA is also done differently than the previous two assignments because of th
 ![](Screenshots/PPS.png)
 
 
-
-
 ## 1. Training and Saving the Model: 
 
 The machine learning model is trained and saved using MLflow. The trained model is stored locally ..
 
 #### Some of the runs from MLFLOW and the comparison of various runs with their Accuracy, Precision, Racall, F1 scores and loss
+
 ![](Screenshots/mlflow.png)
+
 ![](Screenshots/MLRun.png)
 
 - after checking all the runs Model the below configuration was registered for for stagging 
@@ -33,8 +33,6 @@ The machine learning model is trained and saved using MLflow. The trained model 
 ```
 ![](Screenshots/model.png)
 
-
-
 Here our process is
 
     - First do an unit test 
@@ -44,11 +42,10 @@ Here our process is
 - if the whole process goes well, the git action workflows looks like below - 
 
 CICD
+
 ![](Screenshots/CICD.png)
 
-
 ## Unit Testing: 
-
 
 ![](Screenshots/UT.png)
 
@@ -60,23 +57,6 @@ CICD
 
 ![](Screenshots/Deploy.png)
 
-The Docker image is deployed to a target environment ( ubuntu server) using Docker Compose by using Git Actions to automate this deployment process when changes are pushed to our repository. 
-It was done by simply writing a yml file inside (.github/workflows).
-
-
-![](Screenshots/cicd-1.png)
-
-- Sucessful Unit testing 
-
-![](Screenshots/cicd-unit-test.png)
-
-- Sucessful Docker build and push 
-
-![](Screenshots/cicd-docker-build.png)
-
-- Sucessful Deployment on AWS EC2 Server
-
-![](Screenshots/cicd-deploy.png)
 
 - after the successful completion of worklow of git action, please check the Deployment (https://ec2-3-84-132-196.compute-1.amazonaws.com:8080/) 
 
