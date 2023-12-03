@@ -40,7 +40,7 @@ jobs:
       - name: Pull Docker Compose services
         run: docker-compose -f docker-compose.yml pull
 
-#      # Add the "Build and Push" step here
+      # Add the "Build and Push" step here
       - name: Build and push Docker images
         run: |
           docker build -t tanziltonmoy/a3prediction:latest .
