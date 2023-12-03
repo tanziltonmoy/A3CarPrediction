@@ -1,4 +1,25 @@
-from utils import *
+import pickle
+import numpy as np
+from sklearn.preprocessing import StandardScaler
+import mlflow
+import os
+import joblib
+
+
+loaded_model = pickle.load(open("model3.pkl", 'rb'))
+
+
+
+scaler_path = "scaler/scaler.pkl"
+loaded_scaler_params = pickle.load(open(scaler_path, 'rb'))
+
+# # Create scaler with the loaded parameters
+loaded_scaler = StandardScaler()
+loaded_scaler.mean_ = loaded_scaler_params['mean']
+loaded_scaler.scale_ = loaded_scaler_params['scale']       
+
+
+
 # Test whether the model takes expected input
 #initialize the features with user input values
 km_driven = np.log(450000)
