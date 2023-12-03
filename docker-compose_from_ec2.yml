@@ -1,0 +1,7 @@
+version: '3'
+services:
+  web:
+    image:  tanziltonmoy/a3prediction:latest
+    ports:
+      - "9001:8050"
+    command: ["python", "main.py"]
